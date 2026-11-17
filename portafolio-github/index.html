@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Abad | Portafolio de diseño gráfico</title>
+<meta name="description" content="Portafolio personal de Diego Abad, estudiante de diseño gráfico en la Universidad del Azuay.">
+<style>
+  /* ===== COLORES (cámbialos aquí) ===== */
+  :root{
+    --fondo:#fffdf6; --texto:#1b1b1b; --suave:#5c5c5c;
+    --rojo:#e21f3a; --amarillo:#eac71a; --tarjeta:#ffffff; --linea:#1b1b1b;
+  }
+  [data-tema="oscuro"]{
+    --fondo:#16130f; --texto:#f6f1e4; --suave:#b9b3a3;
+    --tarjeta:#201c16; --linea:#f6f1e4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.6;transition:background .3s,color .3s}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--rojo);outline-offset:3px}
+
+  /* ===== MENÚ ===== */
+  header{position:sticky;top:0;z-index:10;background:var(--fondo);border-bottom:3px solid var(--linea)}
+  .barra{max-width:1060px;margin:auto;padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .logo{font-family:Georgia,serif;font-weight:700;font-size:1.2rem;text-decoration:none}
+  nav{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+  nav button{font:inherit;font-weight:700;background:none;border:2px solid transparent;color:var(--texto);padding:.45rem .9rem;border-radius:999px;cursor:pointer;transition:.2s}
+  nav button:hover{border-color:var(--linea)}
+  nav button.activo{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+  #tema{font-size:1.1rem;padding:.4rem .7rem}
+
+  /* ===== SECCIONES (pestañas) ===== */
+  main{max-width:1060px;margin:auto;padding:2.5rem 1.2rem 4rem}
+  .pestana{display:none}
+  .pestana.visible{display:block;animation:entrar .5s ease}
+  @keyframes entrar{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:1.5rem}
+  h2::after{content:"";display:block;width:90px;height:8px;margin-top:.6rem;background:linear-gradient(90deg,var(--rojo) 50%,var(--amarillo) 50%)}
+
+  /* ===== DATOS GENERALES ===== */
+  .portada{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:2.5rem;align-items:center;margin-bottom:3rem}
+  .foto{position:relative}
+  .foto img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;border:3px solid var(--linea);display:block;position:relative;z-index:1}
+  .foto::before{content:"";position:absolute;inset:14px -14px -14px 14px;background:var(--amarillo);border:3px solid var(--linea)}
+  .portada h1{font-size:clamp(2.4rem,7vw,4.2rem);margin-bottom:.4rem}
+  .rol{font-size:1.25rem;font-weight:700;color:var(--rojo);margin-bottom:1rem}
+  .portada p{max-width:52ch;font-size:1.1rem}
+  .botones{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;padding:.7rem 1.3rem;border:3px solid var(--linea);background:var(--amarillo);color:#1b1b1b;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--linea)}
+  .btn.rojo{background:var(--rojo);color:#fff}
+  .bloques{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+  .bloque{background:var(--tarjeta);border:3px solid var(--linea);padding:1.4rem}
+  .bloque h3{font-size:1.25rem;margin-bottom:.6rem}
+  .bloque ul{list-style:none}
+  .bloque li{padding:.3rem 0;border-bottom:1px dashed var(--suave)}
+  .bloque li:last-child{border:0}
+  .etiquetas{display:flex;flex-wrap:wrap;gap:.45rem}
+  .etiqueta{font-size:.9rem;font-weight:700;padding:.2rem .7rem;border:2px solid var(--linea);border-radius:999px}
+  .etiqueta:nth-child(odd){background:var(--amarillo);color:#1b1b1b}
+
+  /* ===== PROYECTOS ===== */
+  .rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.6rem}
+  .proyecto{background:var(--tarjeta);border:3px solid var(--linea);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+  .proyecto:hover{transform:translate(-4px,-4px);box-shadow:8px 8px 0 var(--rojo)}
+  .imagen{height:240px;display:flex;align-items:center;justify-content:center;background:#fff;border-bottom:3px solid var(--linea);overflow:hidden}
+  .imagen img{width:100%;height:100%;object-fit:contain;transition:transform .4s}
+  .imagen img.llena{object-fit:cover}
+  .proyecto:hover .imagen img{transform:scale(1.05)}
+  .cuerpo{padding:1.2rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+  .cuerpo h3{font-size:1.3rem}
+  .cuerpo p{color:var(--suave);font-size:.98rem}
+  .cuerpo .btn{margin-top:auto;text-align:center;font-size:.95rem;padding:.55rem 1rem}
+  .herr{font-size:.88rem}
+  .herr strong{color:var(--rojo)}
+
+  /* ===== HOBBIES ===== */
+  .hobby .imagen{background:var(--amarillo);font-size:5rem}
+  .hobby:nth-child(2) .imagen{background:var(--rojo)}
+  .hobby:nth-child(3) .imagen{background:#1b1b1b}
+
+  /* ===== CONTACTO / PIE ===== */
+  #contacto{margin-top:3.5rem}
+  form{display:grid;gap:.9rem;max-width:560px}
+  label{font-weight:700;font-size:.95rem}
+  input,textarea{width:100%;font:inherit;padding:.7rem;border:3px solid var(--linea);background:var(--tarjeta);color:var(--texto);margin-top:.25rem}
+  textarea{min-height:120px;resize:vertical}
+  footer{border-top:3px solid var(--linea);text-align:center;padding:1.4rem 1rem;color:var(--suave);font-size:.95rem}
+
+  /* ===== CELULAR ===== */
+  @media (max-width:720px){
+    .portada{grid-template-columns:1fr;gap:2rem}
+    .foto{max-width:300px;margin:0 auto 14px}
+    .barra{justify-content:center}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="barra">
+    <a class="logo" href="#datos">Diego Abad</a>
+    <nav aria-label="Menú principal">
+      <button data-ir="datos" class="activo">Datos generales</button>
+      <button data-ir="proyectos">Proyectos</button>
+      <button data-ir="hobbies">Hobbies</button>
+      <button id="tema" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ PESTAÑA 1: DATOS GENERALES ============ -->
+  <section id="datos" class="pestana visible">
+    <div class="portada">
+      <div class="foto">
+        <img src="img/perfil.jpg" alt="Foto de perfil de Diego Abad">
+      </div>
+      <div>
+        <h1>Diego Abad</h1>
+        <p class="rol">Estudiante de diseño gráfico</p>
+        <p>Estudiante de diseño gráfico con un enfoque técnico en la creación digital y la maquetación visual. Combino mi práctica profesional y proyectos de ilustración —apoyándome en herramientas como Adobe Illustrator y modelado en Blender— con una disciplina de entrenamiento físico y musculación estructurada.</p>
+        <p style="margin-top:.8rem">Fuera del ámbito académico y productivo, consumo narrativa interactiva y cultura pop a través de videojuegos, adaptando ese universo visual y técnico como un referente constante para la experimentación creativa y la resolución de problemas de diseño.</p>
+        <div class="botones">
+          <a class="btn rojo" href="#contacto" data-ir-link="datos">Contáctame</a>
+          <a class="btn" href="mailto:diego45abad@gmail.com">diego45abad@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <h2>Sobre mí</h2>
+    <div class="bloques">
+      <div class="bloque">
+        <h3>Formación académica</h3>
+        <ul>
+          <li>Diseño gráfico</li>
+          <li>Universidad del Azuay</li>
+          <li>Sexto ciclo</li>
+        </ul>
+      </div>
+      <div class="bloque">
+        <h3>Habilidades y competencias</h3>
+        <div class="etiquetas">
+          <span class="etiqueta">Ilustración digital</span>
+          <span class="etiqueta">Ilustración a mano</span>
+          <span class="etiqueta">Diseño de carteles</span>
+          <span class="etiqueta">Identidad visual</span>
+          <span class="etiqueta">Creatividad</span>
+        </div>
+      </div>
+      <div class="bloque">
+        <h3>Contacto</h3>
+        <ul>
+          <li>✉️ <a href="mailto:diego45abad@gmail.com">diego45abad@gmail.com</a></li>
+          <li>📍 Cuenca, Ecuador</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="contacto">
+      <h2>Escríbeme</h2>
+      <!-- El formulario abre tu programa de correo con el mensaje ya escrito -->
+      <form id="formulario">
+        <div><label for="nombre">Tu nombre</label><input id="nombre" required></div>
+        <div><label for="mensaje">Mensaje</label><textarea id="mensaje" required></textarea></div>
+        <button class="btn rojo" type="submit" style="cursor:pointer;font:inherit;font-weight:700">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ PESTAÑA 2: PROYECTOS ============ -->
+  <section id="proyectos" class="pestana">
+    <h2>Galería de proyectos</h2>
+    <p style="margin-bottom:1.8rem;color:var(--suave)">Trabajos universitarios de la carrera de diseño gráfico.</p>
+    <div class="rejilla">
+
+      <article class="proyecto">
+        <div class="imagen"><img src="img/olivetti.jpg" alt="Cartel Olivetti: árbol con forma de mujer y letras que forman la palabra evolución"></div>
+        <div class="cuerpo">
+          <h3>Cartel Olivetti</h3>
+          <p>Cartel en blanco y negro con un árbol que toma forma de mujer; sus ramas sostienen teclas de máquina de escribir que forman la palabra «evolución».</p>
+          <p class="herr"><strong>Herramientas:</strong> Ilustración digital, tipografía</p>
+          <a class="btn" href="pdf/cartel-olivetti.pdf" target="_blank" rel="noopener">Ver PDF</a>
+        </div>
+      </article>
+
+      <article class="proyecto">
+        <div class="imagen"><img class="llena" src="img/mural.jpg" alt="Propuesta de mural: silueta de una reina en un solo trazo sobre fondo rojo y amarillo"></div>
+        <div class="cuerpo">
+          <h3>Mural para Cuenca</h3>
+          <p>Propuesta de mural con la silueta de una reina dibujada en un solo trazo y una corona al centro. Usa el rojo y amarillo de la bandera de Cuenca para transmitir calidez, solidaridad e identidad cultural.</p>
+          <p class="herr"><strong>Herramientas:</strong> Ilustración vectorial, paleta cromática</p>
+          <a class="btn" href="pdf/mural-cuenca.pdf" target="_blank" rel="noopener">Ver PDF</a>
+        </div>
+      </article>
+
+      <article class="proyecto">
+        <div class="imagen"><img src="img/dixlab.jpg" alt="Logo de Dixa Lab, laboratorio clínico, con un microscopio sobre fondo azul"></div>
+        <div class="cuerpo">
+          <h3>Logo Dixa Lab</h3>
+          <p>Identidad visual para un laboratorio clínico: un microscopio blanco dentro de un cuadrado azul y tipografía limpia sobre un degradado azul.</p>
+          <p class="herr"><strong>Herramientas:</strong> Diseño de logotipos, identidad de marca</p>
+          <a class="btn" href="pdf/logo-dixlab.pdf" target="_blank" rel="noopener">Ver PDF</a>
+        </div>
+      </article>
+
+
+      <article class="proyecto">
+        <div class="imagen"><img src="img/agenda.jpg" alt="Portada y contraportada de la agenda 2026 de Dixa Lab"></div>
+        <div class="cuerpo">
+          <h3>Agenda 2026 Dixa Lab</h3>
+          <p>Agenda para el laboratorio clínico Dixa Lab y Clínica España. La portada combina una ilustración del edificio en tonos azules con el año y el nombre del Dr. Patricio Feijoo; la contraportada lleva el logo del laboratorio y el lema «de la mano por la salud».</p>
+          <p class="herr"><strong>Herramientas:</strong> Diseño editorial, identidad de marca, mockup</p>
+          <a class="btn" href="img/agenda.jpg" target="_blank" rel="noopener">Ver imagen</a>
+        </div>
+      </article>
+
+      <article class="proyecto">
+        <div class="imagen"><img src="img/gato.jpg" alt="Dibujo a lápiz de un gato con collar y cascabel"></div>
+        <div class="cuerpo">
+          <h3>Retrato de gato</h3>
+          <p>Trabajo de Expresión Gráfica de primer ciclo: dibujo a lápiz de un gato con collar y cascabel, con sombreado suave y detalle en los bigotes y el pelaje.</p>
+          <p class="herr"><strong>Herramientas:</strong> Lápiz de grafito sobre papel</p>
+          <a class="btn" href="img/gato.jpg" target="_blank" rel="noopener">Ver imagen</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ PESTAÑA 3: HOBBIES ============ -->
+  <section id="hobbies" class="pestana">
+    <h2>Hobbies</h2>
+    <div class="rejilla">
+
+      <!-- Para usar tu propia foto: cambia el emoji por <img src="img/gimnasio.jpg" alt="Descripción" class="llena"> -->
+      <article class="proyecto hobby">
+        <div class="imagen" aria-hidden="true">🏋️</div>
+        <div class="cuerpo">
+          <h3>Gimnasio</h3>
+          <p>Entrenar es mi espacio para despejar la mente, ser constante y cuidar mi cuerpo entre las entregas de la universidad.</p>
+        </div>
+      </article>
+
+      <article class="proyecto hobby">
+        <div class="imagen" aria-hidden="true">🎮</div>
+        <div class="cuerpo">
+          <h3>Videojuegos</h3>
+          <p>Me encantan los videojuegos: son una fuente constante de inspiración para mis ilustraciones y mi forma de ver el diseño.</p>
+        </div>
+      </article>
+
+      <article class="proyecto hobby">
+        <div class="imagen" aria-hidden="true">✏️</div>
+        <div class="cuerpo">
+          <h3>Ilustración</h3>
+          <p>Dibujo tanto a mano como en digital. Me gusta experimentar con trazos, formas y colores para contar ideas.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Diego Abad · Diseño gráfico · Universidad del Azuay</footer>
+
+<script>
+  // ---- Pestañas: muestra una sección y oculta las demás ----
+  const secciones = document.querySelectorAll(".pestana");
+  const botones = document.querySelectorAll("nav button[data-ir]");
+
+  function mostrar(id){
+    if(!document.getElementById(id)) id = "datos";
+    secciones.forEach(s => s.classList.toggle("visible", s.id === id));
+    botones.forEach(b => b.classList.toggle("activo", b.dataset.ir === id));
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+  botones.forEach(b => b.addEventListener("click", () => {
+    history.replaceState(null, "", "#" + b.dataset.ir);
+    mostrar(b.dataset.ir);
+  }));
+  document.querySelector(".logo").addEventListener("click", e => { e.preventDefault(); mostrar("datos"); });
+  document.querySelector("[data-ir-link]").addEventListener("click", e => {
+    e.preventDefault();
+    document.getElementById("contacto").scrollIntoView({behavior:"smooth"});
+  });
+  // Si alguien abre la página con #proyectos o #hobbies, va directo ahí
+  const inicio = location.hash.replace("#","");
+  if(["proyectos","hobbies"].includes(inicio)) mostrar(inicio);
+
+  // ---- Modo claro / oscuro ----
+  const btnTema = document.getElementById("tema");
+  function aplicarTema(t){
+    document.documentElement.dataset.tema = t;
+    btnTema.textContent = t === "oscuro" ? "☀️" : "🌙";
+    try{ localStorage.setItem("tema", t); }catch(e){}
+  }
+  let guardado = null;
+  try{ guardado = localStorage.getItem("tema"); }catch(e){}
+  aplicarTema(guardado || (matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro"));
+  btnTema.addEventListener("click", () => aplicarTema(document.documentElement.dataset.tema === "oscuro" ? "claro" : "oscuro"));
+
+  // ---- Formulario: abre tu correo con el mensaje escrito ----
+  document.getElementById("formulario").addEventListener("submit", e => {
+    e.preventDefault();
+    const n = document.getElementById("nombre").value;
+    const m = document.getElementById("mensaje").value;
+    location.href = "mailto:diego45abad@gmail.com?subject=" + encodeURIComponent("Mensaje desde tu portafolio - " + n) + "&body=" + encodeURIComponent(m);
+  });
+</script>
+</body>
+</html>
